@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
+body {
+    background-color: #99aebf;
+}
+
+.common {
+    color: #1ebf3a;
+}
+.magic {
+    color: #2a60bf;
+}
+.epic {
+    color: #b23dbf;
+}
+.legendary {
+    color: #bf6719;
+}
