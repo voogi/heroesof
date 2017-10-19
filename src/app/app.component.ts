@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {IHero} from '../shared/ihero';
-import {AngularFirestore} from "angularfire2/firestore";
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/combineLatest';
 import {HeroService} from "./services/hero.service";
@@ -13,7 +12,7 @@ export class AppComponent {
 
   public hero: IHero = null;
 
-  constructor(private afs: AngularFirestore, private heroService: HeroService) {
+  constructor(private heroService: HeroService) {
 
     // this.hero = {
     //     agility: 5,
