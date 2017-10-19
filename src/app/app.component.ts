@@ -1,18 +1,12 @@
 import {Component} from '@angular/core';
-import {RarityTypes} from '../shared/rarity-types';
-import {IItem} from '../shared/iitem';
-import {WeaponTypes} from '../shared/weapon-types';
 import {IHero} from '../shared/ihero';
-import {ItemType} from '../shared/item-types';
 import {AngularFirestore} from "angularfire2/firestore";
-import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/combineLatest';
 
 @Component({
     selector: 'hof-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
 
@@ -73,6 +67,6 @@ export class AppComponent {
     }
 
     onUpdateHero(hero: IHero){
-        this.afs.doc("/heroes/dani").update(hero);
+        this.afs.doc("/heroes/dani").update(hero).catch( data => console.log(data));
     }
 }

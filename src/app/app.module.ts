@@ -10,18 +10,9 @@ import {
 import { CalculateDpsPipe } from './pipes/calculate-dps.pipe';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import {AngularFireModule} from "angularfire2";
-import {AngularFirestore, AngularFirestoreModule} from "angularfire2/firestore";
+import {AngularFirestoreModule} from "angularfire2/firestore";
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
-
-
-const fireBaseConfig = {
-    apiKey: 'AIzaSyCHrY0CyFLTw4JvgoZ8rt1WhQenXaN3VwU',
-    authDomain: 'awsome-dacf9.firebaseapp.com',
-    databaseURL: 'https://awsome-dacf9.firebaseio.com',
-    projectId: 'awsome-dacf9',
-    storageBucket: 'awsome-dacf9.appspot.com',
-    messagingSenderId: '1031591346300'
-};
+import {environment} from "../environments/environment";
 
 @NgModule({
     declarations: [
@@ -38,7 +29,7 @@ const fireBaseConfig = {
         MatListModule,
         MatButtonModule,
         MatProgressBarModule,
-        AngularFireModule.initializeApp(fireBaseConfig),
+        AngularFireModule.initializeApp(environment.fireBaseConfig),
         AngularFirestoreModule.enablePersistence()
     ],
     providers: [],
