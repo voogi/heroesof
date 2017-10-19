@@ -3,11 +3,15 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule, MatExpansionModule, MatListModule} from '@angular/material';
+import {
+    MatButtonModule, MatCardModule, MatExpansionModule, MatListModule,
+    MatProgressBarModule
+} from '@angular/material';
 import { CalculateDpsPipe } from './pipes/calculate-dps.pipe';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import {AngularFireModule} from "angularfire2";
 import {AngularFirestore, AngularFirestoreModule} from "angularfire2/firestore";
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 
 const fireBaseConfig = {
@@ -23,7 +27,8 @@ const fireBaseConfig = {
     declarations: [
         AppComponent,
         CalculateDpsPipe,
-        HeroDetailComponent
+        HeroDetailComponent,
+        ProgressBarComponent
     ],
     imports: [
         BrowserModule,
@@ -32,6 +37,7 @@ const fireBaseConfig = {
         MatExpansionModule,
         MatListModule,
         MatButtonModule,
+        MatProgressBarModule,
         AngularFireModule.initializeApp(fireBaseConfig),
         AngularFirestoreModule.enablePersistence()
     ],

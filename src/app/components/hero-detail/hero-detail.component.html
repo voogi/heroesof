@@ -64,6 +64,30 @@
                     <div class="col-4">Damage</div>
                     <div class="col-8">{{ hero | calculateDps: 'melee' }}</div>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-4">Health</div>
+                    <div class="col-8">
+                        <hof-progress-bar [color]="'#bf484c'" [mx]="hero.health" [actual]="hero.currentHealth"></hof-progress-bar>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-4">Mana</div>
+                    <div class="col-8">
+                        <hof-progress-bar [color]="'#3A69BF'" [mx]="hero.mana" [actual]="hero.currentMana"></hof-progress-bar>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">Strength</div>
+                    <div class="col-8">{{ hero.strength }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Agility</div>
+                    <div class="col-8">{{ hero.agility }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Intelligence</div>
+                    <div class="col-8">{{ hero.intelligence }}</div>
+                </div>
             </div>
         </div>
 

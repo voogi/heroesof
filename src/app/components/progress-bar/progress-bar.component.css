@@ -1,0 +1,10 @@
+.pBar{
+    background-color: #99aebf;
+    width: 100%;
+    color: #bebfb2;
+}
+
+.pBar span {
+    color: white;
+    white-space: nowrap;
+}

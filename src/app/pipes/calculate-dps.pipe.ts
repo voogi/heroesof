@@ -15,7 +15,7 @@ export class CalculateDpsPipe implements PipeTransform {
 
         if(isUndefined(hero.equippedItems)) return 0;
 
-        this.attributes = this.collectAllAttributes(hero);
+        this.attributes = CalculateDpsPipe.collectAllAttributes(hero);
 
         switch (type) {
             case 'melee':
@@ -29,7 +29,7 @@ export class CalculateDpsPipe implements PipeTransform {
         }
     }
 
-    collectAllAttributes(hero: IHero): { str: number, agi: number, int: number } {
+    static collectAllAttributes(hero: IHero): { str: number, agi: number, int: number } {
 
         let itemKeys: Array<string> = Object.keys(hero.equippedItems);
         let strength: number = 0;
