@@ -13,6 +13,7 @@ import {AngularFireModule} from "angularfire2";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {environment} from "../environments/environment";
+import {HeroService} from "./services/hero.service";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,7 @@ import {environment} from "../environments/environment";
         AngularFireModule.initializeApp(environment.fireBaseConfig),
         AngularFirestoreModule.enablePersistence()
     ],
-    providers: [],
+    providers: [HeroService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
