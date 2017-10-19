@@ -1,0 +1,103 @@
+<mat-card *ngIf="hero">
+    <mat-card-title>
+        Hero details
+    </mat-card-title>
+    <mat-card-content>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div *ngIf="!hero.equippedItems.weapon" class="slot">weapon1</div>
+                        <div *ngIf="hero.equippedItems.weapon" class="slot-full {{ hero.equippedItems.weapon.rarity }}">{{hero.equippedItems.weapon.name}}</div>
+                    </div>
+                    <div class="col">
+                        <div class="slot">helmet</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="slot">weapon2</div>
+                    </div>
+                    <div class="col">
+                        <div class="slot">body</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="slot">necklace</div>
+                    </div>
+                    <div class="col">
+                        <div class="slot">pants</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="slot">ring1</div>
+                    </div>
+                    <div class="col">
+                        <div class="slot">gloves</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="slot">ring2</div>
+                    </div>
+                    <div class="col">
+                        <div class="slot">boots</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">Name</div>
+                    <div class="col-8">{{ hero.name }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Level</div>
+                    <div class="col-8">{{ hero.level }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Experience</div>
+                    <div class="col-8">{{ hero.experience }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Damage</div>
+                    <div class="col-8">{{ hero | calculateDps: 'melee' }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Inventory
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <mat-list>
+                        <mat-list-item *ngFor="let item of hero.inventory;">
+                            <div class="container">
+                                <div class="row no-gutters">
+                                    <div class="col {{item.rarity}}">{{ item.name }}</div>
+                                    <div class="col" *ngIf="item.equipped; else elseBlock">
+                                        <button mat-raised-button (click)="unEquipItem(item)">Unequip</button>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        <div class="col">
+                                            <button mat-raised-button (click)="equipItem(item)">Equip</button>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+
+
+                </mat-expansion-panel>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>

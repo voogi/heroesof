@@ -1,8 +1,9 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
     background-color: #99aebf;
+    font-family: 'Roboto', sans-serif;
 }
 
 .common {
