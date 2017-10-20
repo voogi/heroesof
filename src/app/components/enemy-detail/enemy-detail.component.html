@@ -1,0 +1,37 @@
+<mat-card>
+  <mat-card-title>
+    Enemy details
+  </mat-card-title>
+  <mat-card-content *ngIf="enemy">
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col-4">Name</div>
+          <div class="col-8">{{ enemy.name }}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">Level</div>
+          <div class="col-8">{{ enemy.level }}</div>
+        </div>
+        <div class="row">
+          <div class="col-4">DPS</div>
+          <div class="col-8">{{ enemy | calculateDps: 'melee' }}</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mt-4">
+          <div class="col-4">Health</div>
+          <div class="col-8">
+            <hof-progress-bar [color]="'#bf484c'" [mx]="enemy.health" [actual]="enemy.currentHealth"></hof-progress-bar>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">Mana</div>
+          <div class="col-8">
+            <hof-progress-bar [color]="'#3A69BF'" [mx]="enemy.mana" [actual]="enemy.currentMana"></hof-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

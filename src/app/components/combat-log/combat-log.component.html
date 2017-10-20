@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>
+    Combat log
+  </mat-card-title>
+  <mat-card-content>
+    <mat-list class="list">
+      <mat-list-item [@fadeIn] *ngFor="let msg of messages;" class="list-item">{{msg}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

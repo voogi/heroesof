@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {IHero} from "../../shared/ihero";
 import {IItem} from "../../shared/iitem";
-import {unescapeIdentifier} from "@angular/compiler";
-import {isUndefined} from "util";
+import {isNull, isUndefined} from "util";
+import {IEnemy} from "../../shared/ienemy";
 
 @Pipe({
     name: 'calculateDps'
@@ -11,14 +11,15 @@ export class CalculateDpsPipe implements PipeTransform {
 
     private attributes: { str: number, agi: number, int: number };
 
-    transform(hero: IHero, type: string): any {
-
-        if(isUndefined(hero.equippedItems)) return 0;
+    transform(hero: IHero | IEnemy, type: string): any {
 
         this.attributes = CalculateDpsPipe.collectAllAttributes(hero);
 
         switch (type) {
             case 'melee':
+
+                if(isNull(hero.equippedItems.weapon)) return 0;
+
                 let str = this.attributes.str + hero.strength;
                 const allAPSOnCharacter = 1;
                 const baseDps = ((hero.equippedItems.weapon.minDmg + hero.equippedItems.weapon.maxDmg) / 2) * allAPSOnCharacter *  hero.equippedItems.weapon.speed;
@@ -29,7 +30,7 @@ export class CalculateDpsPipe implements PipeTransform {
         }
     }
 
-    static collectAllAttributes(hero: IHero): { str: number, agi: number, int: number } {
+    static collectAllAttributes(hero: IHero | IEnemy): { str: number, agi: number, int: number } {
 
         let itemKeys: Array<string> = Object.keys(hero.equippedItems);
         let strength: number = 0;

@@ -61,7 +61,7 @@
                     <div class="col-8">{{ hero.experience }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-4">Damage</div>
+                    <div class="col-4">DPS</div>
                     <div class="col-8">{{ hero | calculateDps: 'melee' }}</div>
                 </div>
                 <div class="row mt-4">
@@ -87,6 +87,17 @@
                 <div class="row">
                     <div class="col-4">Intelligence</div>
                     <div class="col-8">{{ hero.intelligence }}</div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <button (click)="onFindOpponent()" mat-raised-button>Find opponent</button>
+                    </div>
+                    <div class="col">
+                        <button [disabled]="!hasEnemy" (click)="onStartBattle()" mat-raised-button>Battle</button>
+                    </div>
+                    <div class="col">
+                        <button [disabled]="!hasEnemy" (click)="onRetreat()" mat-raised-button>Retreat</button>
+                    </div>
                 </div>
             </div>
         </div>

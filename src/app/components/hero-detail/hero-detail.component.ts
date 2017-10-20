@@ -4,6 +4,11 @@ import {
 import {IHero} from '../../../shared/ihero';
 import {IItem} from '../../../shared/iitem';
 import {ItemType} from '../../../shared/item-types';
+import {CombatLogService} from "../../services/combat-log.service";
+import {BattleService} from "../../services/battle.service";
+import {Subscription} from "rxjs/Subscription";
+import {IEnemy} from "../../../shared/ienemy";
+import {isNull} from "util";
 
 @Component({
     selector: 'hof-hero-detail',
@@ -18,11 +23,34 @@ export class HeroDetailComponent implements OnInit {
 
     @Output()
     public updateHero: EventEmitter<IHero> = new EventEmitter<IHero>();
+    private $enemySubscription: Subscription = new Subscription();
+    public hasEnemy: boolean = false;
 
-    constructor() {
+    constructor(private clService: CombatLogService, private battleService: BattleService) {
     }
 
     ngOnInit(): void {
+        this.$enemySubscription = this.battleService.onEnemyFind().subscribe( (enemy: IEnemy) => {
+            if(isNull(enemy)){
+                this.hasEnemy = false;
+            }
+            else{
+                this.hasEnemy = true;
+            }
+        });
+    }
+
+    onFindOpponent(): void {
+        this.clService.sendMessage("Finding opponent...");
+        this.battleService.findOpponent();
+    }
+
+    onRetreat(): void {
+        this.battleService.stopBattle();
+    }
+
+    onStartBattle(): void {
+        this.battleService.startBattle(this.hero,true);
     }
 
     unEquipItem(item: IItem): void {

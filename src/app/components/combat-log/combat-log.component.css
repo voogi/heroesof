@@ -1,0 +1,7 @@
+.list-item {
+    border-bottom: 1px solid #99aebf;
+}
+
+:host /deep/ .mat-list-item-content {
+    height: 24px !important;
+}

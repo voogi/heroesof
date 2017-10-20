@@ -14,13 +14,19 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {environment} from "../environments/environment";
 import {HeroService} from "./services/hero.service";
+import { CombatLogComponent } from './components/combat-log/combat-log.component';
+import {CombatLogService} from "./services/combat-log.service";
+import { EnemyDetailComponent } from './components/enemy-detail/enemy-detail.component';
+import {BattleService} from "./services/battle.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         CalculateDpsPipe,
         HeroDetailComponent,
-        ProgressBarComponent
+        ProgressBarComponent,
+        CombatLogComponent,
+        EnemyDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -33,7 +39,7 @@ import {HeroService} from "./services/hero.service";
         AngularFireModule.initializeApp(environment.fireBaseConfig),
         AngularFirestoreModule.enablePersistence()
     ],
-    providers: [HeroService],
+    providers: [HeroService, CombatLogService, BattleService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
