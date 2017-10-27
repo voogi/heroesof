@@ -57,10 +57,6 @@
                     <div class="col-8">{{ hero.level }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-4">Experience</div>
-                    <div class="col-8">{{ hero.experience }}</div>
-                </div>
-                <div class="row">
                     <div class="col-4">DPS</div>
                     <div class="col-8">{{ hero | calculateDps: 'melee' }}</div>
                 </div>
@@ -74,6 +70,12 @@
                     <div class="col-4">Mana</div>
                     <div class="col-8">
                         <hof-progress-bar [color]="'#3A69BF'" [mx]="hero.mana" [actual]="hero.currentMana"></hof-progress-bar>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-4">Experience</div>
+                    <div class="col-8">
+                        <hof-progress-bar [color]="'#3A69BF'" [mx]="calculateRequiredExperience()" [actual]="hero.experience"></hof-progress-bar>
                     </div>
                 </div>
                 <div class="row mt-4">

@@ -9,6 +9,7 @@ import {BattleService} from "../../services/battle.service";
 import {Subscription} from "rxjs/Subscription";
 import {IEnemy} from "../../../shared/ienemy";
 import {isNull} from "util";
+import {environment} from "../../../environments/environment.prod";
 
 @Component({
     selector: 'hof-hero-detail',
@@ -31,26 +32,32 @@ export class HeroDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.$enemySubscription = this.battleService.onEnemyFind().subscribe( (enemy: IEnemy) => {
-            if(isNull(enemy)){
-                this.hasEnemy = false;
-            }
-            else{
-                this.hasEnemy = true;
-            }
+            this.hasEnemy = !isNull(enemy);
         });
     }
 
+    calculateRequiredExperience(): number {
+        return this.hero.level * environment.levelRequirementMultiplier;
+    }
+
     onFindOpponent(): void {
-        this.clService.sendMessage("Finding opponent...");
-        this.battleService.findOpponent();
+        this.battleService.nextAction({
+            hero : this.hero,
+            action : "FIND_OPPONENT"
+        });
     }
 
     onRetreat(): void {
-        this.battleService.stopBattle();
+        this.battleService.nextAction({
+            action : "STOP_BATTLE"
+        });
     }
 
     onStartBattle(): void {
-        this.battleService.startBattle(this.hero,true);
+        this.battleService.nextAction({
+            hero : this.hero,
+            action : "START_BATTLE"
+        });
     }
 
     unEquipItem(item: IItem): void {

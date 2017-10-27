@@ -18,6 +18,21 @@ export class BattleService {
 
     constructor(private clService: CombatLogService) {}
 
+    nextAction(action: any){
+        switch (action.action) {
+            case "STOP_BATTLE" :
+                this.clService.sendMessage("Hero retreated...");
+                this.stopBattle();
+                break;
+            case "START_BATTLE" :
+                break;
+            case "FIND_OPPONENT" :
+                this.clService.sendMessage("Finding opponent...");
+                this.findOpponent();
+                break;
+        }
+    }
+
     findOpponent() {
 
         this.enemy = {
@@ -55,23 +70,5 @@ export class BattleService {
 
         let whosTurn: TurnTypes = heroEngaged ? TurnTypes.HERO : TurnTypes.ENEMY;
 
-        const MAX_TURN: number = 10;
-        let turns: number = 0;
-
-        let heroDps = new CalculateDpsPipe().transform(hero, "melee");
-
-        this.$battleSubscription = Observable.timer(0, 1000).subscribe( data => {
-
-            if(heroDps > this.enemy.currentHealth){
-                heroDps = this.enemy.currentHealth;
-            }
-            this.enemy.currentHealth -= heroDps;
-
-            this.clService.sendMessage("Enemy got hit! ("+ heroDps +")");
-
-            if(this.enemy.currentHealth <= 0){
-                this.$battleSubscription.unsubscribe();
-            }
-        });
     }
 }
