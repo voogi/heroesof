@@ -4,12 +4,10 @@ import {
 import {IHero} from '../../../shared/ihero';
 import {IItem} from '../../../shared/iitem';
 import {ItemType} from '../../../shared/item-types';
-import {CombatLogService} from "../../services/combat-log.service";
 import {BattleService} from "../../services/battle.service";
 import {Subscription} from "rxjs/Subscription";
-import {IEnemy} from "../../../shared/ienemy";
-import {isNull} from "util";
 import {environment} from "../../../environments/environment.prod";
+import {ActionTypes} from "../../../shared/action-types";
 
 @Component({
     selector: 'hof-hero-detail',
@@ -24,15 +22,22 @@ export class HeroDetailComponent implements OnInit {
 
     @Output()
     public updateHero: EventEmitter<IHero> = new EventEmitter<IHero>();
-    private $enemySubscription: Subscription = new Subscription();
+    private $actionSubscription: Subscription = new Subscription();
     public hasEnemy: boolean = false;
 
-    constructor(private clService: CombatLogService, private battleService: BattleService) {
+    constructor(private battleService: BattleService) {
     }
 
     ngOnInit(): void {
-        this.$enemySubscription = this.battleService.onEnemyFind().subscribe( (enemy: IEnemy) => {
-            this.hasEnemy = !isNull(enemy);
+        this.$actionSubscription = this.battleService.onAction().subscribe( (action: any) => {
+            switch (action.action){
+                case ActionTypes.HERO_RETREAT:
+                    this.hasEnemy = false;
+                    break;
+                case ActionTypes.FIND_OPPONENT:
+                    this.hasEnemy = true;
+                    break;
+            }
         });
     }
 
@@ -43,20 +48,20 @@ export class HeroDetailComponent implements OnInit {
     onFindOpponent(): void {
         this.battleService.nextAction({
             hero : this.hero,
-            action : "FIND_OPPONENT"
+            action : ActionTypes.FIND_OPPONENT
         });
     }
 
     onRetreat(): void {
         this.battleService.nextAction({
-            action : "STOP_BATTLE"
+            action : ActionTypes.HERO_RETREAT
         });
     }
 
     onStartBattle(): void {
         this.battleService.nextAction({
             hero : this.hero,
-            action : "START_BATTLE"
+            action : ActionTypes.START_BATTLE
         });
     }
 

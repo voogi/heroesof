@@ -1,6 +1,11 @@
 <mat-card>
   <mat-card-title>
-    Combat log
+    <div class="row">
+      <div class="col">Combat log</div>
+      <div class="col">
+        <button mat-raised-button (click)="clearLog()">Clear</button>
+      </div>
+    </div>
   </mat-card-title>
   <mat-card-content>
     <mat-list class="list">

@@ -8,33 +8,45 @@ import 'rxjs/add/observable/timer';
 import {Subscription} from "rxjs/Subscription";
 import {Subject} from "rxjs/Subject";
 import {CalculateDpsPipe} from "../pipes/calculate-dps.pipe";
+import {ActionTypes} from "../../shared/action-types";
 
 @Injectable()
 export class BattleService {
 
     public enemy: IEnemy;
     public $battleSubscription: Subscription = new Subscription();
-    public enemy$ubject: Subject<IEnemy> = new Subject<IEnemy>();
+    public action$ubject: Subject<any> = new Subject<any>();
 
     constructor(private clService: CombatLogService) {}
 
     nextAction(action: any){
         switch (action.action) {
-            case "STOP_BATTLE" :
+            case ActionTypes.HERO_RETREAT :
                 this.clService.sendMessage("Hero retreated...");
-                this.stopBattle();
+                this.heroRetreat();
                 break;
-            case "START_BATTLE" :
+            case ActionTypes.START_BATTLE :
                 break;
-            case "FIND_OPPONENT" :
+            case ActionTypes.FIND_OPPONENT :
                 this.clService.sendMessage("Finding opponent...");
                 this.findOpponent();
+                action.enemy = this.enemy;
                 break;
         }
+
+        this.actionHappened(action);
+
+    }
+
+    actionHappened(action: any){
+        this.action$ubject.next(action);
+    }
+
+    onAction(): Observable<any> {
+        return this.action$ubject;
     }
 
     findOpponent() {
-
         this.enemy = {
             name: "Guszti",
             level: 2,
@@ -51,24 +63,14 @@ export class BattleService {
             currentMana: 30,
             defense: 10
         };
-
         this.clService.sendMessage("Enemy found!");
-        this.enemy$ubject.next(this.enemy);
-
     }
 
-    onEnemyFind(): Observable<IEnemy>{
-        return this.enemy$ubject;
-    }
-
-    stopBattle(){
+    heroRetreat(){
         this.$battleSubscription.unsubscribe();
-        this.enemy$ubject.next(null);
     }
 
     startBattle(hero: IHero, heroEngaged: boolean) {
-
         let whosTurn: TurnTypes = heroEngaged ? TurnTypes.HERO : TurnTypes.ENEMY;
-
     }
 }

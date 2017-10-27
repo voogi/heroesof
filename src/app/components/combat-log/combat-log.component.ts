@@ -51,6 +51,10 @@ export class CombatLogComponent implements OnInit, OnDestroy {
         };
     }
 
+    clearLog(){
+        this.messages = [];
+    }
+
     ngOnInit():void {
     }
 
