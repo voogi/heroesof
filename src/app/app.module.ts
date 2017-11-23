@@ -10,7 +10,6 @@ import {
 import { CalculateDpsPipe } from './pipes/calculate-dps.pipe';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import {AngularFireModule} from "angularfire2";
-import {AngularFirestoreModule} from "angularfire2/firestore";
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {environment} from "../environments/environment";
 import {HeroService} from "./services/hero.service";
@@ -18,6 +17,7 @@ import { CombatLogComponent } from './components/combat-log/combat-log.component
 import {CombatLogService} from "./services/combat-log.service";
 import { EnemyDetailComponent } from './components/enemy-detail/enemy-detail.component';
 import {BattleService} from "./services/battle.service";
+import {AngularFirestoreModule} from "angularfire2/firestore";
 
 @NgModule({
     declarations: [
@@ -37,7 +37,7 @@ import {BattleService} from "./services/battle.service";
         MatButtonModule,
         MatProgressBarModule,
         AngularFireModule.initializeApp(environment.fireBaseConfig),
-        AngularFirestoreModule.enablePersistence()
+        AngularFirestoreModule
     ],
     providers: [HeroService, CombatLogService, BattleService],
     bootstrap: [AppComponent]

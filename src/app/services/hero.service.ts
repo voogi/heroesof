@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {IHero} from "../../shared/ihero";
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class HeroService {
 
   constructor(private afs: AngularFirestore) {}
 
-  getHero(name: string): Observable<IHero>{
+  getHero(name: string): Observable<any>{
     return this.afs.doc("/heroes/" + name).valueChanges();
   }
 
